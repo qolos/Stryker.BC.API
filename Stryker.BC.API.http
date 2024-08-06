@@ -1,6 +1,6 @@
 @Stryker.BC.API_HostAddress = http://localhost:5137
 
-GET {{Stryker.BC.API_HostAddress}}/weatherforecast/
+GET {{Stryker.BC.API_HostAddress}}/Log/
 Accept: application/json
 
 ###

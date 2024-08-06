@@ -1,3 +1,8 @@
+//using System;
+//using System.Reflection;
+
+//[assembly: AssemblyVersionAttribute("1.0.1.*")]
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
