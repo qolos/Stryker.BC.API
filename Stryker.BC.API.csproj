@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Copyright>2024</Copyright>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>1.1.2.14</Version>
+    <Version>1.1.2.16</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
