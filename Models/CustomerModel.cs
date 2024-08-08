@@ -3,7 +3,7 @@
 
 namespace Stryker.BC.API.Models
 {
-    public class Customer
+    public class CustomerModel
 {
         public int Customer_ID { get; set; }
         public string Customer_Name { get; set; }

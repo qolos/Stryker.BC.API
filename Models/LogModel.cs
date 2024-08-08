@@ -2,7 +2,7 @@
 
 namespace Stryker.BC.API.Models
 {
-    public class Log
+    public class LogModel
     {
         public int LogId { get; set; }
         public string LogMessage { get; set; }

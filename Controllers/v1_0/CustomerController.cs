@@ -1,45 +1,59 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
-using System.Diagnostics;
-using System.Text.Json;
-
-using Stryker.BC.API;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using Mono.TextTemplating;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.CodeDom.Compiler;
 using System.Drawing;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Xml;
 using System;
 
+using Stryker.BC.API.Models;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Stryker.BC.API.Controllers
+namespace Stryker.BC.API.Controllers.v1_0
 {
-    [Route("api/[controller]")]
+
+    ///<Summary>
+    /// Web API Controller for: Customer
+    ///</Summary>
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        // GET: api/<CustomerController>
+        ///<Summary>
+        /// GET for Customer
+        ///</Summary>
+        ///<returns>
+        ///List of CustomerModel objects.  NOTE: null may be returned
+        ///</returns>
         [HttpGet]
-        public IEnumerable<Models.Customer> Get()
+        public IEnumerable<CustomerModel> Get()
         {
             var cust1 = Get(1228);
             var cust2 = Get(1229);
             var cust3 = Get(1230);
 
-            return new Models.Customer[] { cust1, cust2, cust3 };
+            return new CustomerModel[] { cust1, cust2, cust3 };
         }
 
-        // GET api/<CustomerController>/5
-        [Produces("application/json", "application/xml", Type = typeof(Models.Customer))]
+        // GET api/v1.0/<CustomerController>/5
+        ///<returns>
+        ///List of CustomerModel objects.  NOTE: null may be returned
+        ///</returns>
+        [Produces("application/json", "application/xml", Type = typeof(CustomerModel))]
         [HttpGet("{id}")]
-        public Models.Customer Get(int id)
+        public CustomerModel Get(int id)
         {
             // Result: System.Text.Json.JsonException = The JSON value could not be converted to Stryker.BC.API.Models.Customer.Path: $ | LineNumber: 1 | BytePositionInLine: 17.
             //string jsonString = @"
@@ -87,21 +101,21 @@ namespace Stryker.BC.API.Controllers
             ";
 
 
-            JsonSerializerOptions opts = new System.Text.Json.JsonSerializerOptions();
+            JsonSerializerOptions opts = new JsonSerializerOptions();
             //opts.ToJson(Newtonsoft.Json.Formatting.Indented);
             //opts.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never;
             //opts.PropertyNameCaseInsensitive = true;
             //opts = new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
             opts.IncludeFields = true;
-            Models.Customer? obj = JsonSerializer.Deserialize<Models.Customer>(jsonString, opts);
-            obj.Customer_ID = id;     // Add variable data to my hardcoded json - for testing only
-            // TODO: The Customer obj is being deserialized properly but the return sends nothing in Swagger!  Fix return issue.
+            CustomerModel? obj = JsonSerializer.Deserialize<CustomerModel>(jsonString, opts);
+            if (obj != null)
+                obj.Customer_ID = id;     // Add variable data to my hardcoded json - for testing only
             return obj;
         }
 
         // POST api/<CustomerController>
         [HttpPost]
-        public void Post([FromBody] Models.Customer Customer)
+        public void Post([FromBody] CustomerModel Customer)
         {
             Debug.WriteLine(Customer.ToJson(Newtonsoft.Json.Formatting.Indented));
         }

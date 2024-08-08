@@ -3,6 +3,7 @@ using NuGet.Protocol;
 using System.Diagnostics;
 
 using Stryker.BC.API;
+using Stryker.BC.API.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,26 +15,26 @@ namespace Stryker.BC.API.Controllers
     {
         // GET: api/<LogController>
         [HttpGet]
-        public IEnumerable<Models.Log> Get()
+        public IEnumerable<LogModel> Get()
         {
-            var val1 = new Models.Log { LogId = 32, LogDate = DateTime.Now.AddSeconds(-3), LogMessage = "Component failed successfully.", LogType = 1 };
-            var val2 = new Models.Log { LogId = 33, LogDate = DateTime.Now, LogMessage = "Component successfully failed.", LogType = 2 };
-            var val3 = new Models.Log { LogId = 34, LogDate = DateTime.Now.AddSeconds(+3), LogMessage = "Failure isn't an option.", LogType = 2 };
+            var val1 = new LogModel { LogId = 32, LogDate = DateTime.Now.AddSeconds(-3), LogMessage = "Component failed successfully.", LogType = 1 };
+            var val2 = new LogModel { LogId = 33, LogDate = DateTime.Now, LogMessage = "Component successfully failed.", LogType = 2 };
+            var val3 = new LogModel { LogId = 34, LogDate = DateTime.Now.AddSeconds(+3), LogMessage = "Failure isn't an option.", LogType = 2 };
 
-            return new Models.Log[] { val1, val2, val3 };
+            return new LogModel[] { val1, val2, val3 };
         }
 
         // GET api/<LogController>/5
         [HttpGet("{id}")]
-        public Models.Log Get(int id)
+        public LogModel Get(int id)
         {
-            var val1 = new Models.Log { LogId = id, LogDate = DateTime.Now.AddSeconds(-3), LogMessage = "Access was prohibited due to error.", LogType = 1 };
+            var val1 = new LogModel { LogId = id, LogDate = DateTime.Now.AddSeconds(-3), LogMessage = "Access was prohibited due to error.", LogType = 1 };
             return val1;
         }
 
         // POST api/<LogController>
         [HttpPost]
-        public void Post([FromBody] Models.Log log)
+        public void Post([FromBody] LogModel log)
         {
             Debug.WriteLine(log.ToJson(Newtonsoft.Json.Formatting.Indented));
         }
