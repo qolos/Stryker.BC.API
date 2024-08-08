@@ -1,6 +1,6 @@
 ﻿// Note: Properties must be public and must have { get; set; } or will return empty
 
-namespace Stryker.BC.API.Models
+namespace Stryker.BC.API.v1_0.Models
 {
     public class LogModel
     {

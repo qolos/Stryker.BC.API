@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 // Note: Properties must be public and must have { get; set; } or will return empty
 
-namespace Stryker.BC.API.Models
+namespace Stryker.BC.API.v1_1.Models
 {
     public class CustomerModel
-{
+    {
         public int Customer_ID { get; set; }
         public string Customer_Name { get; set; }
         public string First_Name { get; set; }
@@ -20,5 +20,6 @@ namespace Stryker.BC.API.Models
         public string Addresses { get; set; }
         public bool Receive_Marketing_Emails { get; set; }
         public string Tax_Exempt_Category { get; set; }
+
     }
 }

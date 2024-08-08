@@ -27,9 +27,9 @@ namespace Stryker.BC.API.Utilities
         {
             var info = new OpenApiInfo
             {
-                Title = "API Title",
+                Title = "Stryker.BC.API",
                 Version = description.ApiVersion.ToString(),
-                Description = "API Description. This API version has been deprecated."
+                Description = "Stryker's API to interface with Big Commerce."
             };
 
             return info;

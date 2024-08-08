@@ -16,21 +16,23 @@ builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerOptio
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("swagger/v1.0", new OpenApiInfo { Title = "Stryker.BC.API", Version = "v1.0" });
+    c.SwaggerDoc("swagger/v1.0", new OpenApiInfo { Title = "Stryker.BC.API", Version = "v1.0" });     // NOTE: ApiVersion change here
+    c.SwaggerDoc("swagger/v1.1", new OpenApiInfo { Title = "Stryker.BC.API", Version = "v1.1" });   // NOTE: ApiVersion change here v1.1 
     c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); //This line
 });
 
-builder.Services.AddApiVersioning(options =>
+var apiver = builder.Services.AddApiVersioning(options =>
 {
-    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.DefaultApiVersion = new ApiVersion(1, 1);           // NOTE: ApiVersion change here v1.1 
     options.AssumeDefaultVersionWhenUnspecified = true;
     options.ReportApiVersions = true;
-})
-    .AddApiExplorer(options =>
-    {
-        options.GroupNameFormat = "'v'VVV";
-        options.SubstituteApiVersionInUrl = true;
-    });
+});
+
+apiver.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 
 var app = builder.Build();
 

@@ -15,18 +15,17 @@ using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using System.Xml;
 using System;
-
-using Stryker.BC.API.Models;
+using Stryker.BC.API.v1_1;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Stryker.BC.API.Controllers.v1_0
+namespace Stryker.BC.API.v1_1.Controllers
 {
 
     ///<Summary>
     /// Web API Controller for: Customer
     ///</Summary>
-    [ApiVersion("1.0")]
+    [ApiVersion("1.1", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -35,25 +34,29 @@ namespace Stryker.BC.API.Controllers.v1_0
         /// GET for Customer
         ///</Summary>
         ///<returns>
-        ///List of CustomerModel objects.  NOTE: null may be returned
+        /// GET: All Customers
+        ///NOTE: null may be returned
         ///</returns>
         [HttpGet]
-        public IEnumerable<CustomerModel> Get()
+        public IEnumerable<Models.CustomerModel> Get()
         {
             var cust1 = Get(1228);
             var cust2 = Get(1229);
             var cust3 = Get(1230);
 
-            return new CustomerModel[] { cust1, cust2, cust3 };
+            return new Models.CustomerModel[] { cust1, cust2, cust3 };
         }
 
-        // GET api/v1.0/<CustomerController>/5
+        ///<Summary>
+        /// GET for Customer
+        ///</Summary>
         ///<returns>
-        ///List of CustomerModel objects.  NOTE: null may be returned
+        /// GET: Single Customer
+        /// NOTE: null may be returned
         ///</returns>
-        [Produces("application/json", "application/xml", Type = typeof(CustomerModel))]
+        [Produces("application/json", "application/xml", Type = typeof(Models.CustomerModel))]
         [HttpGet("{id}")]
-        public CustomerModel Get(int id)
+        public Models.CustomerModel Get(int id)
         {
             // Result: System.Text.Json.JsonException = The JSON value could not be converted to Stryker.BC.API.Models.Customer.Path: $ | LineNumber: 1 | BytePositionInLine: 17.
             //string jsonString = @"
@@ -107,7 +110,7 @@ namespace Stryker.BC.API.Controllers.v1_0
             //opts.PropertyNameCaseInsensitive = true;
             //opts = new System.Text.Json.JsonSerializerOptions(System.Text.Json.JsonSerializerDefaults.Web);
             opts.IncludeFields = true;
-            CustomerModel? obj = JsonSerializer.Deserialize<CustomerModel>(jsonString, opts);
+            Models.CustomerModel? obj = JsonSerializer.Deserialize<Models.CustomerModel>(jsonString, opts);
             if (obj != null)
                 obj.Customer_ID = id;     // Add variable data to my hardcoded json - for testing only
             return obj;
@@ -115,7 +118,7 @@ namespace Stryker.BC.API.Controllers.v1_0
 
         // POST api/<CustomerController>
         [HttpPost]
-        public void Post([FromBody] CustomerModel Customer)
+        public void Post([FromBody] Models.CustomerModel Customer)
         {
             Debug.WriteLine(Customer.ToJson(Newtonsoft.Json.Formatting.Indented));
         }
